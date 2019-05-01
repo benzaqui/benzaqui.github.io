@@ -286,8 +286,8 @@ body {
 .intro {
     width: 100%;
     height: 100%;
-    background: #141E30;
-    background: linear-gradient(90deg, #141e30, #243b55);
+    background: #141E30; #301414
+    background: linear-gradient(90deg, #141e30, #243b55); #301414 #542424
     background: -moz-linear-gradient(top, #141E30 0%, #243b55 100%);
     background: -webkit-linear-gradient(top, #141E30 0%, #243b55 100%);
     background: linear-gradient(to bottom, #141E30 0%, #243b55 100%);
@@ -335,8 +335,8 @@ body {
     animation-name: slideIn;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-    -webkit-animation-delay: 550ms;
-    animation-delay: 550ms;
+    -webkit-animation-delay: 650ms;
+    animation-delay: 650ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards
 }
@@ -348,8 +348,8 @@ body {
     animation-name: slideIn;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-    -webkit-animation-delay: 600ms;
-    animation-delay: 600ms;
+    -webkit-animation-delay: 750ms;
+    animation-delay: 750ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards
 }
@@ -361,8 +361,8 @@ body {
     animation-name: slideIn;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-    -webkit-animation-delay: 650ms;
-    animation-delay: 650ms;
+    -webkit-animation-delay: 850ms;
+    animation-delay: 850ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards
 }
@@ -374,8 +374,8 @@ body {
     animation-name: slideIn;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-    -webkit-animation-delay: 700ms;
-    animation-delay: 700ms;
+    -webkit-animation-delay: 950ms;
+    animation-delay: 950ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards
 }
@@ -387,8 +387,8 @@ body {
     animation-name: slideIn;
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
-    -webkit-animation-delay: 750ms;
-    animation-delay: 750ms;
+    -webkit-animation-delay: 1050ms;
+    animation-delay: 1050ms;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards
 }
