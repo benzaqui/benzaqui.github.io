@@ -1,0 +1,49 @@
+# Core LangGraph and LangChain dependencies
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+
+# LLM Provider integrations (following preference: Anthropic > OpenAI > Google)
+langchain-anthropic>=0.2.0
+langchain-openai>=0.2.0
+langchain-google-genai>=2.0.0
+
+# AWS integration for Kendra knowledge base
+boto3>=1.35.0
+botocore>=1.35.0
+
+# Environment and configuration management
+python-dotenv>=1.0.0
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+
+# Testing framework
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+pytest-mock>=3.14.0
+pytest-cov>=5.0.0
+
+# Development and monitoring
+langsmith>=0.1.0
+structlog>=24.0.0
+rich>=13.0.0
+
+# Async support for web frameworks
+nest-asyncio>=1.6.0
+
+# Email processing utilities
+email-validator>=2.2.0
+python-email-utils>=0.1.0
+
+# Optional web framework support
+streamlit>=1.38.0
+fastapi>=0.115.0
+uvicorn>=0.31.0
+
+# Development utilities
+black>=24.0.0
+isort>=5.13.0
+flake8>=7.0.0
+mypy>=1.11.0
+pre-commit>=3.8.0
