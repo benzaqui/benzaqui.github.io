@@ -34,7 +34,6 @@ nest-asyncio>=1.6.0
 
 # Email processing utilities
 email-validator>=2.2.0
-python-email-utils>=0.1.0
 
 # Optional web framework support
 streamlit>=1.38.0
@@ -47,3 +46,4 @@ isort>=5.13.0
 flake8>=7.0.0
 mypy>=1.11.0
 pre-commit>=3.8.0
+
