@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur Benzaquin — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --muted: #6b6b60;
+    --accent: #2a5f5f;
+    --accent-light: #e8f0f0;
+    --rule: #d4cfc8;
+    --bg: #faf9f6;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 13px; line-height: 1.6; }
+
+/* TOOLBAR */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--ink); color: white;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 24px; font-size: 12px;
+}
+.toolbar-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; letter-spacing: 0.5px; }
+.toolbar-actions { display: flex; gap: 12px; }
+.btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 5px 14px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; border-radius: 2px; transition: all 0.2s; }
+.btn:hover { background: rgba(255,255,255,0.1); border-color: white; }
+.btn-primary { background: var(--accent); border-color: var(--accent); }
+.btn-primary:hover { background: #1e4545; }
+
+/* FILTER BAR */
+.filter-bar {
+  position: fixed; top: 42px; left: 0; right: 0; z-index: 99;
+  background: #f4f2ee; border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 8px; padding: 8px 24px;
+  flex-wrap: wrap;
+}
+.filter-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.filter-tag { background: white; border: 1px solid var(--rule); color: var(--muted); font-size: 11px; padding: 3px 10px; border-radius: 2px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.filter-tag:hover, .filter-tag.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+/* PAGE */
+.page { max-width: 960px; margin: 110px auto 60px; background: var(--white); box-shadow: 0 4px 40px rgba(0,0,0,0.08); animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* HEADER */
+.header { background: var(--accent); color: white; padding: 48px 52px 40px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; }
+.header-title { font-size: 11px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; }
+.header-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; letter-spacing: -0.5px; line-height: 1; margin-bottom: 10px; }
+.header-company { font-size: 13px; opacity: 0.7; font-weight: 300; }
+.header-contact { text-align: right; font-size: 12px; font-weight: 300; opacity: 0.85; line-height: 2; }
+.header-contact a { color: white; text-decoration: none; }
+
+/* BODY */
+.body { display: grid; grid-template-columns: 270px 1fr; }
+
+/* SIDEBAR */
+.sidebar { background: #f4f2ee; padding: 36px 28px; border-right: 1px solid var(--rule); }
+.sidebar-section { margin-bottom: 30px; }
+.sidebar-heading { font-size: 9px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.sidebar-text { font-size: 12px; color: var(--ink); line-height: 1.7; font-weight: 300; }
+
+.skill-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 11px; padding: 3px 9px; border-radius: 2px; margin: 3px 2px; font-weight: 400; transition: all 0.2s; cursor: default; }
+.skill-tag:hover { background: var(--accent); color: white; }
+
+.chain-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.chain-num { width: 20px; height: 20px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+.chain-text { font-size: 11.5px; color: var(--ink); line-height: 1.5; }
+.chain-text strong { font-weight: 500; display: block; }
+.chain-text span { color: var(--muted); font-size: 11px; }
+
+.cert-item { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
+.cert-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-top: 6px; flex-shrink: 0; }
+
+.lang-row { display: flex; justify-content: space-between; margin-bottom: 7px; font-size: 12px; }
+.lang-level { font-size: 11px; color: var(--muted); font-style: italic; }
+
+.edu-item { margin-bottom: 14px; }
+.edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; }
+.edu-school { font-size: 12px; color: var(--accent); margin-top: 1px; }
+.edu-detail { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 2px; line-height: 1.5; }
+
+/* MAIN */
+.main { padding: 36px 44px; }
+.section { margin-bottom: 32px; }
+.section-title { font-size: 9px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.summary-text { font-size: 13px; line-height: 1.8; color: #333; font-weight: 300; }
+
+/* EXPERIENCE */
+.exp-item { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid #eeebe5; transition: all 0.3s; }
+.exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.exp-item.hidden { display: none; }
+
+.exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+.exp-role { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); }
+.exp-duration { font-size: 11px; color: var(--muted); font-style: italic; white-space: nowrap; margin-left: 12px; }
+.exp-org { font-size: 12px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+
+.exp-tags { margin-bottom: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 2px; font-weight: 400; }
+.tag-industry { background: #f0ede8; color: var(--muted); }
+.tag-tech { background: var(--accent-light); color: var(--accent); }
+
+.exp-bullets { list-style: none; }
+.exp-bullets li { font-size: 12.5px; color: #444; font-weight: 300; line-height: 1.65; margin-bottom: 5px; padding-left: 14px; position: relative; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+
+.exp-impact { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 8px 12px; margin-top: 10px; border-radius: 0 2px 2px 0; }
+.exp-impact-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 3px; }
+.exp-impact-text { font-size: 12px; color: var(--ink); font-weight: 400; }
+
+@media print { .toolbar, .filter-bar { display: none; } .page { margin: 0; box-shadow: none; } }
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-name">Arthur Benzaquin — CV 2025</div>
+  <div class="toolbar-actions">
+    <button class="btn" onclick="window.print()">&#11015; Print / Save PDF</button>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter by:</span>
+  <button class="filter-tag active" onclick="filterExp('all', this)">All</button>
+  <button class="filter-tag" onclick="filterExp('agentic', this)">Agentic AI</button>
+  <button class="filter-tag" onclick="filterExp('genai', this)">GenAI</button>
+  <button class="filter-tag" onclick="filterExp('strategy', this)">Strategy</button>
+  <button class="filter-tag" onclick="filterExp('data', this)">Data &amp; ML</button>
+  <button class="filter-tag" onclick="filterExp('fs', this)">Financial Services</button>
+  <button class="filter-tag" onclick="filterExp('lifescience', this)">Life Science</button>
+</div>
+
+<div class="page">
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-title">Senior Consultant · AI &amp; Data</div>
+      <div class="header-name">Arthur Benzaquin</div>
+      <div class="header-company">Deloitte Consulting AG, Zurich</div>
+    </div>
+    <div class="header-contact">
+      +41 (0) 79 816 95 78<br>
+      <a href="mailto:abenzaquin@deloitte.ch">abenzaquin@deloitte.ch</a><br>
+      Zurich, Switzerland
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">AI Value Chain Coverage</div>
+        <div class="chain-item"><div class="chain-num">1</div><div class="chain-text"><strong>Data Foundation</strong><span>Engineering, governance, pipelines</span></div></div>
+        <div class="chain-item"><div class="chain-num">2</div><div class="chain-text"><strong>Modelling &amp; Experimentation</strong><span>ML, DL, LLMs</span></div></div>
+        <div class="chain-item"><div class="chain-num">3</div><div class="chain-text"><strong>Deployment &amp; MLOps</strong><span>Production systems, monitoring</span></div></div>
+        <div class="chain-item"><div class="chain-num">4</div><div class="chain-text"><strong>Application Layer</strong><span>RAG, copilots, APIs</span></div></div>
+        <div class="chain-item"><div class="chain-num">5</div><div class="chain-text"><strong>Orchestration &amp; Autonomy</strong><span>Agentic systems, multi-agent</span></div></div>
+        <div class="chain-item"><div class="chain-num">6</div><div class="chain-text"><strong>Governance &amp; Risk</strong><span>Controls, compliance, oversight</span></div></div>
+        <div class="chain-item"><div class="chain-num">7</div><div class="chain-text"><strong>Value Realization</strong><span>Adoption, ROI, scaling</span></div></div>
+        <div class="chain-item"><div class="chain-num">8</div><div class="chain-text"><strong>Strategy &amp; Vision</strong><span>CoE design, roadmapping</span></div></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Expertise</div>
+        <span class="skill-tag">Agentic AI</span>
+        <span class="skill-tag">AI Orchestration</span>
+        <span class="skill-tag">AI Governance</span>
+        <span class="skill-tag">GenAI Strategy</span>
+        <span class="skill-tag">RAG Systems</span>
+        <span class="skill-tag">AI Value Realization</span>
+        <span class="skill-tag">CoE Design</span>
+        <span class="skill-tag">Agile PM</span>
+        <span class="skill-tag">Design Thinking</span>
+        <span class="skill-tag">ML Deployment</span>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Technical Stack</div>
+        <div class="sidebar-text">Python · SQL (Presto) · Spark<br>Azure · AWS · Git<br>LLM APIs · Vector DBs<br>PowerBI · Tableau</div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Certifications</div>
+        <div class="cert-item"><div class="cert-dot"></div><div class="sidebar-text">AWS Data Analytics Specialty (2022)</div></div>
+        <div class="cert-item"><div class="cert-dot"></div><div class="sidebar-text">Azure AI Solutions (in progress)</div></div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">MSc Microengineering</div>
+          <div class="edu-school">EPFL, Switzerland</div>
+          <div class="edu-detail">Major: Robotics &amp; Applied Data Science<br>Minor: Management, Tech &amp; Entrepreneurship</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">BSc Microengineering</div>
+          <div class="edu-school">EPFL, Switzerland</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-heading">Languages</div>
+        <div class="lang-row"><span>French</span><span class="lang-level">Native</span></div>
+        <div class="lang-row"><span>English</span><span class="lang-level">Fluent (IELTS 8/9)</span></div>
+        <div class="lang-row"><span>Spanish</span><span class="lang-level">Competent</span></div>
+        <div class="lang-row"><span>German</span><span class="lang-level">Learning</span></div>
+      </div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <div class="section">
+        <div class="section-title">Profile</div>
+        <div class="summary-text">
+          AI &amp; Data generalist consultant with rare end-to-end coverage of the full AI value chain — from building production ML products to designing enterprise agentic platforms. Currently leading agentic AI orchestration and governance at Deloitte Switzerland, enabling autonomous AI at scale across regulated industries.<br><br>
+          Strong engineering foundation (EPFL MSc) combined with hands-on consulting across Financial Services, Life Sciences, Consumer &amp; Pharma. Multicultural experience across Switzerland, France, Singapore, and Australia.
+        </div>
+      </div>
+
+      <!-- DELOITTE -->
+      <div class="section">
+        <div class="section-title">Deloitte Consulting AG, Zurich &nbsp;·&nbsp; Mar 2022 – Present</div>
+
+        <div class="exp-item" data-tags="agentic,genai,fs">
+          <div class="exp-header">
+            <div class="exp-role">Agentic Orchestration Platform — Lead</div>
+            <div class="exp-duration">2025 – Present</div>
+          </div>
+          <div class="exp-org">Global Enterprise Client</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Enterprise</span>
+            <span class="tag tag-tech">Agentic AI</span>
+            <span class="tag tag-tech">Orchestration</span>
+            <span class="tag tag-tech">Governance</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Led the design and development of an enterprise-grade agentic orchestration platform enabling semi- and fully autonomous agents operating across systems.</li>
+            <li>Reduced use case build time from months to days through reusable agent components, standardised tooling, and accelerated onboarding frameworks.</li>
+            <li>Embedded governance at platform level — agent boundaries, oversight mechanisms, audit trails, and control layers for safe autonomous execution.</li>
+            <li>Orchestrated cross-system execution across enterprise applications, data sources, and APIs within a governed, scalable architecture.</li>
+          </ul>
+          <div class="exp-impact">
+            <div class="exp-impact-label">Key Impact</div>
+            <div class="exp-impact-text">Use case delivery accelerated from months → days. Governed autonomous execution across enterprise systems at scale.</div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-tags="strategy,genai,lifescience">
+          <div class="exp-header">
+            <div class="exp-role">GenAI Strategy &amp; CoE Design</div>
+            <div class="exp-duration">2024 · 3 months</div>
+          </div>
+          <div class="exp-org">Global Life Science Company</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Life Science</span>
+            <span class="tag tag-tech">GenAI Strategy</span>
+            <span class="tag tag-tech">CoE</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Led prioritisation and roadmap creation for GenAI use cases across regions, consolidating 300+ ideas into 4–5 high-impact initiatives with executive alignment.</li>
+            <li>Designed a rapid innovation framework to accelerate GenAI adoption and delivery quality across business units.</li>
+            <li>Aligned programme execution with global digital transformation objectives.</li>
+          </ul>
+          <div class="exp-impact">
+            <div class="exp-impact-label">Key Impact</div>
+            <div class="exp-impact-text">300+ ideas → 4–5 board-aligned initiatives. Innovation framework deployed across multiple BUs.</div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-tags="strategy,genai">
+          <div class="exp-header">
+            <div class="exp-role">GenAI Strategy &amp; CoE Roadmap</div>
+            <div class="exp-duration">2023–2024 · 2 months</div>
+          </div>
+          <div class="exp-org">Global CPG Company (Swarovski)</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Consumer</span>
+            <span class="tag tag-tech">GenAI Strategy</span>
+            <span class="tag tag-tech">CoE</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Supported client in shaping AI &amp; GenAI Centre of Excellence strategy, engaging 20+ business units and functions.</li>
+            <li>Shaped value story, facilitated workshops, drove prioritisation, roadmap creation, and service model ideation.</li>
+            <li>Defined Ways of Working (WoWs) and governance model for cross-BU GenAI initiative intake.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item" data-tags="genai,fs">
+          <div class="exp-header">
+            <div class="exp-role">Generative AI Pilot — e-Banking</div>
+            <div class="exp-duration">2023 · 3 months</div>
+          </div>
+          <div class="exp-org">Major Financial Institution</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Financial Services</span>
+            <span class="tag tag-tech">RAG</span>
+            <span class="tag tag-tech">Azure</span>
+            <span class="tag tag-tech">GenAI</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Developed and implemented one of the first GenAI pilots at a major Swiss bank, improving e-banking usability and customer lifecycle assistance.</li>
+            <li>Delivered end-to-end solution incorporating risk, legal, and consulting innovation expertise on Azure stack.</li>
+            <li>Navigated complex stakeholder landscape across IT, Risk, Legal, and Business to achieve production deployment.</li>
+          </ul>
+          <div class="exp-impact">
+            <div class="exp-impact-label">Key Impact</div>
+            <div class="exp-impact-text">First RAG-powered GenAI product in production at a tier-1 Swiss financial institution.</div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-tags="strategy,data,lifescience">
+          <div class="exp-header">
+            <div class="exp-role">Data Services Engagement Workstream</div>
+            <div class="exp-duration">2022–2023 · 6 months</div>
+          </div>
+          <div class="exp-org">Global Pharmaceutical Company</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Pharma</span>
+            <span class="tag tag-tech">Data Strategy</span>
+            <span class="tag tag-tech">Operating Model</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Supported Global Enterprise Data Services team in improving IT processes through cross-BU engagement.</li>
+            <li>Developed capability map, maturity model, and service catalog for the data enablement team.</li>
+            <li>Improved operating model for demand intake and solution development; directed stakeholder workshops to align global strategy.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item" data-tags="strategy,fs">
+          <div class="exp-header">
+            <div class="exp-role">Portfolio Management System Upgrade</div>
+            <div class="exp-duration">2022 · 3 months</div>
+          </div>
+          <div class="exp-org">Private Bank</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Financial Services</span>
+            <span class="tag tag-tech">Design Thinking</span>
+            <span class="tag tag-tech">Requirements</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Assisted COO Office in defining strategic asset allocation and functional requirements for a PMS upgrade for discretionary Portfolio Managers.</li>
+            <li>Led design thinking workshops across Business, IT, Risk, and Legal with Moroccan delivery centre support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PRIOR -->
+      <div class="section">
+        <div class="section-title">Prior Experience</div>
+
+        <div class="exp-item" data-tags="data">
+          <div class="exp-header">
+            <div class="exp-role">Data Scientist</div>
+            <div class="exp-duration">Nov 2020 – Feb 2022</div>
+          </div>
+          <div class="exp-org">Elula Group Pty Ltd · Sydney, Australia</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">FinTech / Banking</span>
+            <span class="tag tag-tech">ML Products</span>
+            <span class="tag tag-tech">Python</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Built and owned AIaaS retention and churn detection products deployed to 3 major Australian banks — from data pipeline to production.</li>
+            <li>Developed "Nudge," a customer purchase propensity MVP driving 10% revenue increase for one client.</li>
+            <li>Led a team of 3 engineers; managed JIRA, sprint planning, and data science quality standards.</li>
+          </ul>
+          <div class="exp-impact">
+            <div class="exp-impact-label">Key Impact</div>
+            <div class="exp-impact-text">+10% revenue uplift for one client. AI products in production across 3 banks over 20 months.</div>
+          </div>
+        </div>
+
+        <div class="exp-item" data-tags="data">
+          <div class="exp-header">
+            <div class="exp-role">Engineer — Predictive Maintenance</div>
+            <div class="exp-duration">Aug 2019 – Feb 2020</div>
+          </div>
+          <div class="exp-org">Bosch Software Innovation · Singapore</div>
+          <div class="exp-tags">
+            <span class="tag tag-industry">Industrial IoT</span>
+            <span class="tag tag-tech">ML</span>
+            <span class="tag tag-tech">Sensors</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Developed sensor-based predictive maintenance models for elevator fleets; maintained 130 commissioned hardware units across Singapore.</li>
+            <li>Built automated data quality reports reducing hardware and transmission issue response times.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function filterExp(tag, el) {
+  document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.exp-item').forEach(item => {
+    if (tag === 'all') { item.classList.remove('hidden'); return; }
+    const tags = item.dataset.tags || '';
+    item.classList.toggle('hidden', !tags.includes(tag));
+  });
+}
+</script>
+
+</body>
+</html>
