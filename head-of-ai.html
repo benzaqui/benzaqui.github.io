@@ -583,6 +583,139 @@
   .chat-send:hover    { opacity: 0.85; }
   .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
 
+  /* ─── TIMELINE ─── */
+  @keyframes nowPulse {
+    0%, 100% { box-shadow: 0 0 0 3px var(--accent-dim), 0 0 10px rgba(78,205,196,0.25); }
+    50%       { box-shadow: 0 0 0 6px rgba(78,205,196,0.12), 0 0 22px rgba(78,205,196,0.5); }
+  }
+
+  .tl-outer { overflow-x: auto; padding-bottom: 8px; }
+
+  .tl-inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-width: 560px;
+    padding-top: 14px;
+  }
+
+  .tl-track {
+    position: absolute;
+    top: 21px; /* padding-top(14) + half-dot(7) */
+    left: 7px; right: 7px;
+    height: 2px;
+    overflow: hidden;
+    border-radius: 1px;
+  }
+  .tl-track-bg  { position: absolute; inset: 0; background: var(--accent-rule); }
+  .tl-track-fill {
+    position: absolute; top: 0; left: 0; height: 100%; width: 0;
+    background: linear-gradient(to right, var(--accent), rgba(78,205,196,0.4));
+    transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tl-node {
+    display: flex; flex-direction: column; align-items: center;
+    flex: 1; position: relative; cursor: default;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .tl-node.visible { opacity: 1; transform: translateY(0); }
+
+  .tl-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--accent-rule); background: var(--bg);
+    position: relative; z-index: 1; flex-shrink: 0;
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  }
+  .tl-node:hover .tl-dot {
+    border-color: var(--accent); background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-dim);
+  }
+  .tl-node.tl-now .tl-dot {
+    border-color: var(--accent); background: var(--accent);
+    animation: nowPulse 2.5s ease-in-out infinite;
+  }
+
+  .tl-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%; transform: translateX(-50%);
+    background: var(--surface-2); border: 1px solid var(--accent-rule);
+    border-radius: 4px; padding: 7px 12px;
+    font-size: 11.5px; color: var(--text-muted); white-space: nowrap;
+    pointer-events: none; opacity: 0; z-index: 10;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .tl-tooltip::after {
+    content: ''; position: absolute;
+    top: 100%; left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--accent-rule);
+  }
+  .tl-node:hover .tl-tooltip { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+  .tl-label { margin-top: 14px; text-align: center; }
+  .tl-year {
+    font-size: 12px; font-weight: 500; color: var(--accent);
+    letter-spacing: 0.5px; margin-bottom: 4px;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+  }
+  .tl-org { font-size: 11.5px; font-weight: 400; color: var(--text); line-height: 1.35; }
+  .tl-now-badge {
+    font-size: 8px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent-rule);
+    padding: 1px 5px; border-radius: 2px; background: var(--accent-dim);
+  }
+  .tl-mobile-detail { display: none; }
+
+  @media (max-width: 640px) {
+    .tl-outer { overflow-x: visible; padding-bottom: 0; }
+    .tl-inner  { flex-direction: column; min-width: 0; padding-top: 0; }
+    .tl-track  { top: 7px; bottom: 7px; left: 7px; right: auto; width: 2px; height: auto; }
+    .tl-track-fill { width: 100%; height: 0; transition: height 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .tl-node   { flex-direction: row; align-items: flex-start; gap: 18px; max-width: none; padding: 12px 0; }
+    .tl-dot    { margin-top: 1px; flex-shrink: 0; }
+    .tl-label  { margin-top: 0; text-align: left; }
+    .tl-tooltip { display: none; }
+    .tl-mobile-detail { display: block; font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+  }
+
+  /* ─── MANIFESTO ─── */
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .manifesto-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-rule);
+    border-radius: 8px;
+    padding: 28px 28px 32px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .manifesto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.28);
+    border-color: rgba(78,205,196,0.45);
+  }
+
+  .manifesto-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px; font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px; line-height: 1.2;
+  }
+  .manifesto-card-text {
+    font-size: 13.5px; font-weight: 300;
+    color: var(--text-muted); line-height: 1.75;
+  }
+
+  @media (max-width: 600px) {
+    .manifesto-grid { grid-template-columns: 1fr; }
+  }
+
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--accent-rule);
@@ -796,7 +929,80 @@
     <div class="section-eyebrow">Career</div>
     <h2 class="section-title">Timeline</h2>
     <p class="section-subtitle">A decade building AI from research to production — across continents, industries, and scales.</p>
-    <div class="section-content">Coming soon</div>
+
+    <div class="tl-outer">
+      <div class="tl-inner">
+        <div class="tl-track">
+          <div class="tl-track-bg"></div>
+          <div class="tl-track-fill" id="tl-track-fill"></div>
+        </div>
+
+        <div class="tl-node" data-i="0">
+          <div class="tl-dot"><div class="tl-tooltip">Robotics &amp; Data Science</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2017</div>
+            <div class="tl-org">EPFL MSc</div>
+            <div class="tl-mobile-detail">Robotics &amp; Data Science</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-i="1">
+          <div class="tl-dot"><div class="tl-tooltip">First ML in production, IoT sensors</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2019</div>
+            <div class="tl-org">Bosch Singapore</div>
+            <div class="tl-mobile-detail">First ML in production, IoT sensors</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-i="2">
+          <div class="tl-dot"><div class="tl-tooltip">Built &amp; owned AIaaS products, 3 banks</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2020</div>
+            <div class="tl-org">Elula Sydney</div>
+            <div class="tl-mobile-detail">Built &amp; owned AIaaS products, 3 banks</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-i="3">
+          <div class="tl-dot"><div class="tl-tooltip">Enterprise AI consulting begins</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2022</div>
+            <div class="tl-org">Deloitte Zurich</div>
+            <div class="tl-mobile-detail">Enterprise AI consulting begins</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-i="4">
+          <div class="tl-dot"><div class="tl-tooltip">GenAI pioneer in Swiss FS</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2023</div>
+            <div class="tl-org">First RAG at<br>tier-1 bank</div>
+            <div class="tl-mobile-detail">GenAI pioneer in Swiss FS</div>
+          </div>
+        </div>
+
+        <div class="tl-node" data-i="5">
+          <div class="tl-dot"><div class="tl-tooltip">300+ ideas &#8594; 5 initiatives</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2024</div>
+            <div class="tl-org">GenAI Strategy<br>at scale</div>
+            <div class="tl-mobile-detail">300+ ideas &#8594; 5 initiatives</div>
+          </div>
+        </div>
+
+        <div class="tl-node tl-now" data-i="6">
+          <div class="tl-dot"><div class="tl-tooltip">Orchestration platform, governed autonomy</div></div>
+          <div class="tl-label">
+            <div class="tl-year">2025 <span class="tl-now-badge">now</span></div>
+            <div class="tl-org">Agentic AI</div>
+            <div class="tl-mobile-detail">Orchestration platform, governed autonomy</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -804,9 +1010,32 @@
 <section id="manifesto" class="placeholder-section">
   <div class="section-inner">
     <div class="section-eyebrow">Leadership</div>
-    <h2 class="section-title">Manifesto</h2>
+    <h2 class="section-title">What I believe about AI</h2>
     <p class="section-subtitle">How I think about AI leadership, governance, and creating durable value in regulated environments.</p>
-    <div class="section-content">Coming soon</div>
+
+    <div class="manifesto-grid">
+
+      <div class="manifesto-card">
+        <div class="manifesto-card-title">The bottleneck has shifted</div>
+        <p class="manifesto-card-text">Building agents is now a commodity. The real challenge is governing them — defining boundaries, maintaining oversight, and ensuring autonomous systems behave as intended at scale. Companies that solve orchestration and governance will pull decisively ahead.</p>
+      </div>
+
+      <div class="manifesto-card">
+        <div class="manifesto-card-title">Strategy is subtraction</div>
+        <p class="manifesto-card-text">A list of 300 GenAI ideas is not a strategy. Real AI strategy is ruthless prioritisation — picking the 3 things that create compounding advantage and resourcing them properly. Everything else is distraction.</p>
+      </div>
+
+      <div class="manifesto-card">
+        <div class="manifesto-card-title">Value lives after deployment</div>
+        <p class="manifesto-card-text">Most AI projects fail not because the model is wrong, but because the organisation isn't ready for it. Adoption, process redesign, and stakeholder alignment determine ROI. Technical excellence is necessary but never sufficient.</p>
+      </div>
+
+      <div class="manifesto-card">
+        <div class="manifesto-card-title">Governance enables ambition</div>
+        <p class="manifesto-card-text">Governance is not a constraint on AI ambition — it is what makes ambition sustainable. Ungoverned agents in production are a liability. The teams that build with governance from day one move faster in the long run, not slower.</p>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -985,6 +1214,28 @@
     });
   }, { threshold: 0.3 });
   metricObserver.observe(metricsSection);
+
+  // ── Timeline ──
+  const tlSection   = document.getElementById('timeline');
+  const tlTrackFill = document.getElementById('tl-track-fill');
+  const tlNodes     = document.querySelectorAll('.tl-node');
+
+  const tlObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const mobile = window.innerWidth <= 640;
+      setTimeout(() => {
+        if (mobile) tlTrackFill.style.height = '100%';
+        else        tlTrackFill.style.width  = '100%';
+      }, 80);
+      tlNodes.forEach((node, i) => {
+        setTimeout(() => node.classList.add('visible'), 160 + i * 110);
+      });
+      tlObserver.disconnect();
+    });
+  }, { threshold: 0.2 });
+
+  if (tlSection) tlObserver.observe(tlSection);
 
   // ── Chat Widget ──
   const CHAT_SYSTEM = `You are Arthur Benzaquin's AI career assistant, embedded in his personal CV website.
