@@ -49,6 +49,11 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0);   opacity: 0.35; }
+    30%            { transform: translateY(-5px); opacity: 1; }
+  }
+
   /* ─── NAV ─── */
   nav {
     position: fixed;
@@ -487,6 +492,97 @@
     .vc-panel.active { transform: none; }
   }
 
+  /* ─── CHAT WIDGET ─── */
+  .chat-widget {
+    background: var(--surface);
+    border: 1px solid var(--accent-rule);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-messages {
+    min-height: 320px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--accent-rule); border-radius: 2px; }
+
+  .chat-msg { display: flex; flex-direction: column; max-width: 85%; animation: fadeUp 0.3s ease both; }
+  .chat-msg.user      { align-self: flex-end;   align-items: flex-end; }
+  .chat-msg.assistant { align-self: flex-start; align-items: flex-start; }
+
+  .chat-msg-label {
+    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-dim); font-weight: 500; margin-bottom: 5px;
+  }
+  .chat-msg.assistant .chat-msg-label { color: var(--accent); }
+
+  .chat-bubble { padding: 12px 16px; font-size: 13.5px; font-weight: 300; line-height: 1.65; }
+
+  .chat-msg.user .chat-bubble {
+    background: var(--surface-2); color: var(--text);
+    border-radius: 12px 12px 3px 12px;
+  }
+  .chat-msg.assistant .chat-bubble {
+    background: var(--accent-dim); color: var(--text);
+    border: 1px solid var(--accent-rule);
+    border-radius: 3px 12px 12px 12px;
+  }
+
+  .chat-typing { display: none; align-self: flex-start; }
+  .chat-typing.visible {
+    display: flex; gap: 5px; align-items: center;
+    padding: 14px 18px;
+    background: var(--accent-dim); border: 1px solid var(--accent-rule);
+    border-radius: 3px 12px 12px 12px;
+  }
+  .chat-typing-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+  .chat-typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  .chat-typing-dot:nth-child(3) { animation-delay: 0.30s; }
+
+  .chat-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px; border-top: 1px solid var(--accent-rule); }
+  .chat-chip {
+    background: var(--accent-dim); border: 1px solid var(--accent-rule);
+    color: var(--accent); font-size: 12px; font-family: 'DM Sans', sans-serif;
+    padding: 6px 14px; border-radius: 20px; cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .chat-chip:hover { background: rgba(78,205,196,0.2); border-color: var(--accent); }
+  .chat-chip.used  { opacity: 0.35; pointer-events: none; }
+
+  .chat-input-area {
+    display: flex; gap: 10px; padding: 16px 20px;
+    border-top: 1px solid var(--accent-rule); background: var(--bg);
+  }
+  .chat-input {
+    flex: 1; background: var(--surface); border: 1px solid var(--accent-rule);
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px; font-weight: 300; padding: 11px 16px;
+    border-radius: 6px; outline: none; transition: border-color 0.2s;
+  }
+  .chat-input::placeholder { color: var(--text-dim); }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-send {
+    background: var(--accent); border: none; color: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.5px; padding: 11px 20px; border-radius: 6px;
+    cursor: pointer; transition: opacity 0.2s; white-space: nowrap;
+  }
+  .chat-send:hover    { opacity: 0.85; }
+  .chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
   /* ─── FOOTER ─── */
   footer {
     border-top: 1px solid var(--accent-rule);
@@ -728,9 +824,36 @@
 <section id="chat" class="placeholder-section">
   <div class="section-inner">
     <div class="section-eyebrow">Interactive</div>
-    <h2 class="section-title">Ask Me Anything</h2>
-    <p class="section-subtitle">An AI interface powered by my career data — ask about projects, philosophy, or fit for your team.</p>
-    <div class="section-content">Coming soon</div>
+    <h2 class="section-title">Ask about Arthur</h2>
+    <p class="section-subtitle">Powered by Claude — ask anything about experience, approach, or fit for your role.</p>
+
+    <div class="chat-widget">
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-msg assistant">
+          <div class="chat-msg-label">Arthur's AI</div>
+          <div class="chat-bubble">Hi — I'm Arthur's career assistant. Ask me about his background, how he thinks about AI leadership, or whether he's the right fit for your team.</div>
+        </div>
+        <div class="chat-typing" id="chat-typing">
+          <div class="chat-typing-dot"></div>
+          <div class="chat-typing-dot"></div>
+          <div class="chat-typing-dot"></div>
+        </div>
+      </div>
+
+      <div class="chat-chips">
+        <button class="chat-chip" data-q="What makes Arthur different from other AI leaders?">What makes Arthur different from other AI leaders?</button>
+        <button class="chat-chip" data-q="Has he worked in regulated industries?">Has he worked in regulated industries?</button>
+        <button class="chat-chip" data-q="What does he think about agentic AI?">What does he think about agentic AI?</button>
+      </div>
+
+      <div class="chat-input-area">
+        <input class="chat-input" id="chat-input" type="text"
+               placeholder="Ask anything about Arthur's background…" autocomplete="off">
+        <button class="chat-send" id="chat-send">Send</button>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -862,6 +985,125 @@
     });
   }, { threshold: 0.3 });
   metricObserver.observe(metricsSection);
+
+  // ── Chat Widget ──
+  const CHAT_SYSTEM = `You are Arthur Benzaquin's AI career assistant, embedded in his personal CV website.
+Arthur is targeting Head of AI roles at companies that want to operationalise AI seriously — not just experiment with it.
+
+Your job is to help recruiters and hiring managers understand Arthur's experience, point of view, and fit for senior AI leadership. Be confident, direct, and human. Answer in 2-4 sentences unless detail is clearly needed. Never use bullet points unless listing more than 4 items. Never fabricate details. If asked about availability or contact, direct to benzaquinarthur@gmail.com.
+
+ARTHUR'S PROFILE:
+
+POSITIONING: End-to-end AI value chain coverage — from building production ML products to designing enterprise agentic platforms. Rare combination of hands-on technical depth and C-suite advisory. 8 years experience.
+
+CURRENT ROLE: Senior Consultant AI & Data, Deloitte Zurich, March 2022–present.
+
+KEY ENGAGEMENTS:
+- Agentic Orchestration Platform (2025, global enterprise): Led design of enterprise agentic platform for semi/fully autonomous agents. Cut use case delivery from months to days. Embedded governance — agent boundaries, audit trails, control layers.
+- GenAI Strategy, Life Science company (2024, 3 months): Consolidated 300+ ideas → 5 board-aligned initiatives. Designed rapid innovation framework.
+- GenAI CoE Roadmap, Swarovski (2023-24, 2 months): Shaped AI strategy across 20+ BUs.
+- RAG Pilot, Major Swiss Bank (2023, 3 months): First RAG product in production at a tier-1 Swiss financial institution. Azure stack. Risk/Legal/Compliance sign-off.
+- Pharma Data Services (2022-23, 6 months): Capability map, maturity model, operating model redesign for Global EDS team.
+
+PRIOR: Data Scientist at Elula Group Sydney (Nov 2020–Feb 2022) — built AIaaS churn and retention products for 3 Australian banks. +10% revenue uplift. Led team of 3. Engineer at Bosch Singapore (2019-2020) — predictive maintenance ML.
+
+EDUCATION: MSc Microengineering, EPFL Switzerland (Robotics & Data Science, thesis grade 6/6). BSc Microengineering EPFL.
+
+BELIEFS:
+- Agentic AI: The bottleneck is no longer building agents — it is governing them.
+- Value realization: Technical excellence is necessary but insufficient. Adoption and process redesign determine ROI.
+- Governance: Not a constraint on AI ambition — what makes ambition sustainable.
+- Strategy: A list of 300 ideas is not a strategy. Real strategy is ruthless prioritisation.
+
+INDUSTRIES: Financial Services, Life Sciences, Pharma, Consumer/CPG.
+TECHNICAL: Python, SQL, Spark, Azure, AWS, LLM APIs, Vector DBs.
+CONTACT: benzaquinarthur@gmail.com`;
+
+  const chatHistory = [];
+  const chatInput   = document.getElementById('chat-input');
+  const chatSendBtn = document.getElementById('chat-send');
+  const chatTyping  = document.getElementById('chat-typing');
+  const chatMsgs    = document.getElementById('chat-messages');
+
+  function chatScrollBottom() {
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+  }
+
+  function chatAppend(role, text) {
+    const wrap   = document.createElement('div');
+    wrap.className = 'chat-msg ' + role;
+    const label  = document.createElement('div');
+    label.className = 'chat-msg-label';
+    label.textContent = role === 'user' ? 'You' : "Arthur's AI";
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble';
+    bubble.textContent = text;
+    wrap.appendChild(label);
+    wrap.appendChild(bubble);
+    chatMsgs.insertBefore(wrap, chatTyping);
+    chatScrollBottom();
+  }
+
+  async function chatSend() {
+    const text = chatInput.value.trim();
+    if (!text || chatSendBtn.disabled) return;
+
+    chatInput.value = '';
+    chatInput.disabled = true;
+    chatSendBtn.disabled = true;
+
+    chatAppend('user', text);
+    chatHistory.push({ role: 'user', content: text });
+
+    chatTyping.classList.add('visible');
+    chatScrollBottom();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'anthropic-version': '2023-06-01'
+          // x-api-key injected by hosting platform
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: CHAT_SYSTEM,
+          messages: chatHistory
+        })
+      });
+
+      if (!res.ok) throw new Error(res.status);
+      const data  = await res.json();
+      const reply = data.content[0].text;
+
+      chatHistory.push({ role: 'assistant', content: reply });
+      chatTyping.classList.remove('visible');
+      chatAppend('assistant', reply);
+
+    } catch (err) {
+      chatHistory.pop();
+      chatTyping.classList.remove('visible');
+      chatAppend('assistant', 'Something went wrong — please try again or reach out directly at benzaquinarthur@gmail.com.');
+    }
+
+    chatInput.disabled = false;
+    chatSendBtn.disabled = false;
+    chatInput.focus();
+  }
+
+  chatSendBtn.addEventListener('click', chatSend);
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatSend(); }
+  });
+  document.querySelectorAll('.chat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.add('used');
+      chatInput.value = chip.dataset.q;
+      chatSend();
+    });
+  });
 </script>
 
 </body>
