@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur Benzaquin — Head of AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #1a3a3a;
+    --surface:     #1f4545;
+    --surface-2:   #254f4f;
+    --accent:      #4ecdc4;
+    --accent-dim:  rgba(78,205,196,0.12);
+    --accent-rule: rgba(78,205,196,0.22);
+    --text:        #ffffff;
+    --text-muted:  rgba(255,255,255,0.55);
+    --text-dim:    rgba(255,255,255,0.30);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── KEYFRAMES ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+  }
+
+  @keyframes metricFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s ease, border-color 0.35s ease, padding 0.35s ease;
+  }
+
+  nav.scrolled {
+    background: var(--surface);
+    border-color: var(--accent-rule);
+    padding: 14px 40px;
+  }
+
+  .nav-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s both;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 88px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s 0.25s both;
+  }
+
+  .hero-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 28px;
+    animation: fadeUp 0.6s 0.4s both;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    animation: fadeUp 0.6s 0.5s both;
+  }
+
+  .hero-company {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.6s both;
+  }
+
+  .hero-contact {
+    font-size: 12px;
+    color: var(--text-muted);
+    animation: fadeUp 0.6s 0.7s both;
+  }
+
+  .hero-contact a {
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+
+  .hero-contact a:hover { opacity: 0.75; }
+
+  .hero-contact .sep {
+    margin: 0 10px;
+    color: var(--text-dim);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    color: var(--accent);
+    opacity: 0.6;
+    animation: bounce 2s 1.2s ease-in-out infinite, fadeUp 0.6s 1s both;
+    cursor: default;
+    user-select: none;
+  }
+
+  /* ─── METRICS ─── */
+  #metrics {
+    background: var(--surface);
+    padding: 56px 0;
+    border-top: 1px solid var(--accent-rule);
+    border-bottom: 1px solid var(--accent-rule);
+  }
+
+  .metrics-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .metric {
+    flex: 1 1 160px;
+    max-width: 220px;
+    text-align: center;
+    padding: 28px 24px;
+    border-right: 1px solid var(--accent-rule);
+  }
+
+  .metric:last-child { border-right: none; }
+
+  .metric-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .metric-arrow {
+    font-size: 32px;
+    opacity: 0;
+    transition: none;
+  }
+
+  .metric-arrow.animate {
+    animation: metricFade 0.8s ease both;
+    opacity: 1;
+  }
+
+  .metric-arrow .arr {
+    color: var(--text-dim);
+    margin: 0 4px;
+    font-size: 24px;
+  }
+
+  .metric-unit {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-top: 8px;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  /* ─── PLACEHOLDER SECTIONS ─── */
+  .placeholder-section {
+    padding: 110px 24px;
+    border-top: 1px solid var(--accent-rule);
+  }
+
+  .section-inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 52px;
+    max-width: 560px;
+  }
+
+  .section-content {
+    min-height: 200px;
+    border: 1px dashed var(--accent-rule);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--accent-rule);
+    padding: 36px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  footer a {
+    color: var(--text-dim);
+    margin-left: 20px;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero-name { font-size: 64px; }
+    .nav-links { gap: 20px; }
+    .metric { flex: 1 1 140px; }
+    .section-title { font-size: 40px; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 16px 20px; }
+    nav.scrolled { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .hero-name { font-size: 48px; }
+    .hero-tagline { font-size: 13px; }
+    .metric { flex: 1 1 100%; border-right: none; border-bottom: 1px solid var(--accent-rule); }
+    .metric:last-child { border-bottom: none; }
+    .placeholder-section { padding: 72px 20px; }
+    .section-title { font-size: 36px; }
+  }
+
+  /* ─── PRINT ─── */
+  @media print {
+    nav, .hero-scroll { display: none; }
+    #hero { min-height: auto; padding-top: 40px; }
+    .placeholder-section { page-break-inside: avoid; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-monogram">AB</div>
+  <ul class="nav-links">
+    <li><a href="#value-chain">Value Chain</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#chat">Chat</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Head of AI &nbsp;·&nbsp; Candidate</div>
+  <h1 class="hero-name">Arthur Benzaquin</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-tagline">Building AI that matters &nbsp;·&nbsp; from strategy to autonomous execution</p>
+  <p class="hero-company">Deloitte Consulting AG &nbsp;·&nbsp; Zurich</p>
+  <p class="hero-contact">
+    +41 (0) 79 816 95 78
+    <span class="sep">·</span>
+    <a href="mailto:abenzaquin@deloitte.ch">abenzaquin@deloitte.ch</a>
+    <span class="sep">·</span>
+    Zurich, Switzerland
+  </p>
+  <div class="hero-scroll">&#9662;</div>
+</section>
+
+<!-- METRICS -->
+<section id="metrics">
+  <div class="metrics-inner">
+
+    <div class="metric">
+      <div class="metric-number" data-target="8" data-prefix="" data-suffix="+">8+</div>
+      <div class="metric-unit">Years</div>
+      <div class="metric-label">in AI &amp; Data</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-number" data-target="3" data-prefix="" data-suffix="">3</div>
+      <div class="metric-unit">Banks</div>
+      <div class="metric-label">AI products in production</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-number" data-target="10" data-prefix="+" data-suffix="%">+10%</div>
+      <div class="metric-unit">Revenue</div>
+      <div class="metric-label">uplift delivered</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-number metric-arrow">300 <span class="arr">&#8594;</span> 5</div>
+      <div class="metric-unit">Ideas</div>
+      <div class="metric-label">prioritised to board initiatives</div>
+    </div>
+
+    <div class="metric">
+      <div class="metric-number metric-arrow">Months <span class="arr">&#8594;</span> Days</div>
+      <div class="metric-unit">Delivery</div>
+      <div class="metric-label">use case build time</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUE CHAIN -->
+<section id="value-chain" class="placeholder-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">AI Expertise</div>
+    <h2 class="section-title">Value Chain</h2>
+    <p class="section-subtitle">End-to-end coverage from data foundation to autonomous execution — strategy through governance.</p>
+    <div class="section-content">Coming soon</div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="placeholder-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Career</div>
+    <h2 class="section-title">Timeline</h2>
+    <p class="section-subtitle">A decade building AI from research to production — across continents, industries, and scales.</p>
+    <div class="section-content">Coming soon</div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto" class="placeholder-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Leadership</div>
+    <h2 class="section-title">Manifesto</h2>
+    <p class="section-subtitle">How I think about AI leadership, governance, and creating durable value in regulated environments.</p>
+    <div class="section-content">Coming soon</div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="placeholder-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Work</div>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-subtitle">Deloitte Consulting AG &nbsp;·&nbsp; Elula Group &nbsp;·&nbsp; Bosch Software Innovation</p>
+    <div class="section-content">Coming soon</div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<section id="chat" class="placeholder-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Interactive</div>
+    <h2 class="section-title">Ask Me Anything</h2>
+    <p class="section-subtitle">An AI interface powered by my career data — ask about projects, philosophy, or fit for your team.</p>
+    <div class="section-content">Coming soon</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>&copy; 2025 Arthur Benzaquin</span>
+  <a href="#hero">&#8593; Back to top</a>
+</footer>
+
+<script>
+  // ── Nav scroll state ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+
+  // ── Metric count-up ──
+  function countUp(el) {
+    const target  = +el.dataset.target;
+    const prefix  = el.dataset.prefix  || '';
+    const suffix  = el.dataset.suffix  || '';
+    const duration = 1800;
+    const start   = performance.now();
+    function step(now) {
+      const p    = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      el.textContent = prefix + Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ── IntersectionObserver for metrics ──
+  const metricsSection = document.getElementById('metrics');
+  const metricObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      document.querySelectorAll('[data-target]').forEach(el => countUp(el));
+      document.querySelectorAll('.metric-arrow').forEach(el => el.classList.add('animate'));
+      metricObserver.disconnect();
+    });
+  }, { threshold: 0.3 });
+  metricObserver.observe(metricsSection);
+</script>
+
+</body>
+</html>
