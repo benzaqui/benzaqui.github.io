@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Arthur Benzaquin — Head of AI candidate. End-to-end AI value chain from strategy to autonomous execution. Senior Consultant AI & Data at Deloitte Zurich.">
+<meta name="author" content="Arthur Benzaquin">
+<meta property="og:title" content="Arthur Benzaquin — Head of AI">
+<meta property="og:description" content="Building AI that matters — from strategy to autonomous execution. 8 years in AI across financial services, life sciences, and enterprise.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Arthur Benzaquin — Head of AI">
+<meta name="twitter:description" content="Building AI that matters — from strategy to autonomous execution.">
+<link rel="canonical" href="https://benzaqui.github.io/head-of-ai.html">
 <title>Arthur Benzaquin — Head of AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -753,12 +762,212 @@
     .section-title { font-size: 36px; }
   }
 
+  /* ─── LIGHT MODE ─── */
+  body.light {
+    --bg:          #faf9f6;
+    --surface:     #f0eeea;
+    --surface-2:   #e4e1db;
+    --accent:      #2a9d8f;
+    --accent-dim:  rgba(42,157,143,0.10);
+    --accent-rule: rgba(42,157,143,0.22);
+    --text:        #1c2b2b;
+    --text-muted:  rgba(28,43,43,0.65);
+    --text-dim:    rgba(28,43,43,0.38);
+  }
+
+  body.transitioning,
+  body.transitioning * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+  }
+
+  /* ─── MODE TOGGLE ─── */
+  .mode-toggle {
+    background: none;
+    border: 1px solid var(--accent-rule);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .mode-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-cards { display: flex; flex-direction: column; gap: 10px; }
+
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-rule);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+  .exp-card.open { border-color: rgba(78,205,196,0.45); }
+  body.light .exp-card.open { border-color: rgba(42,157,143,0.5); }
+
+  .exp-header {
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    padding: 20px 24px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    transition: background 0.2s;
+  }
+  .exp-header:hover { background: var(--accent-dim); }
+
+  .exp-role {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .exp-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+  }
+  .exp-meta span { margin-right: 10px; }
+  .exp-meta span:not(:last-child)::after { content: ' ·'; color: var(--text-dim); margin-left: 10px; }
+
+  .exp-impact {
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 6px;
+  }
+
+  .exp-chevron {
+    width: 18px; height: 18px;
+    color: var(--text-dim);
+    transition: transform 0.3s ease, color 0.2s;
+    flex-shrink: 0;
+  }
+  .exp-card.open .exp-chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  .exp-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--accent-rule);
+  }
+  .exp-card.open .exp-body { display: block; }
+
+  .exp-bullets {
+    list-style: none;
+    margin: 18px 0 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .exp-bullets li {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .exp-tag {
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--accent-rule);
+    background: var(--accent-dim);
+    padding: 3px 9px;
+    border-radius: 2px;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   /* ─── PRINT ─── */
   @media print {
-    nav, .hero-scroll { display: none; }
-    #hero { min-height: auto; padding-top: 40px; }
-    .placeholder-section { page-break-inside: avoid; }
-    body { background: white; color: black; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+
+    nav, .hero-scroll, #chat, .mode-toggle { display: none !important; }
+
+    :root {
+      --bg:          #ffffff;
+      --surface:     #f5f5f5;
+      --surface-2:   #ebebeb;
+      --accent:      #1a7a73;
+      --accent-dim:  rgba(26,122,115,0.06);
+      --accent-rule: rgba(26,122,115,0.25);
+      --text:        #111111;
+      --text-muted:  #444444;
+      --text-dim:    #777777;
+    }
+
+    @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+
+    body { background: #fff !important; color: #111 !important; }
+
+    #hero { min-height: auto !important; padding: 24pt 0 16pt !important; }
+    .hero-name { font-size: 40pt !important; }
+
+    .placeholder-section { padding: 24pt 0 !important; page-break-inside: avoid; }
+    .section-title { font-size: 26pt !important; }
+
+    /* All animated elements must be visible */
+    .reveal, .tl-node, .metric-arrow { opacity: 1 !important; transform: none !important; }
+
+    /* Expand all VC panels */
+    .vc-panel {
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      position: static !important;
+    }
+    .vc-diagram { grid-template-columns: 1fr; }
+
+    /* Expand all experience cards */
+    .exp-body { display: block !important; }
+    .exp-card { page-break-inside: avoid; }
+
+    /* Print contact footer */
+    footer::after {
+      content: 'Full CV: abenzaquin@deloitte.ch';
+      display: block;
+      margin-top: 6pt;
+      font-size: 9pt;
+      color: #555;
+    }
+
+    .manifesto-card { transform: none !important; box-shadow: none !important; }
+    .manifesto-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -774,6 +983,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#chat">Chat</a></li>
   </ul>
+  <button class="mode-toggle" id="mode-toggle" aria-label="Toggle colour mode">&#9788;</button>
 </nav>
 
 <!-- HERO -->
@@ -1045,7 +1255,174 @@
     <div class="section-eyebrow">Work</div>
     <h2 class="section-title">Experience</h2>
     <p class="section-subtitle">Deloitte Consulting AG &nbsp;·&nbsp; Elula Group &nbsp;·&nbsp; Bosch Software Innovation</p>
-    <div class="section-content">Coming soon</div>
+
+    <div class="exp-cards">
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">Agentic Orchestration Platform Lead</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Global Enterprise Client</span><span>2025 · Ongoing</span>
+            </div>
+            <div class="exp-impact">Cut use case delivery from months to days</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Architected enterprise agentic orchestration platform supporting semi/fully autonomous agent execution across business systems</li>
+            <li>Reduced AI use case delivery from months to days through modular agent design and standardised tooling</li>
+            <li>Embedded governance from day one — agent boundaries, audit trails, and control layers for enterprise compliance</li>
+            <li>Led cross-functional team spanning AI engineering, solution architecture, and risk/compliance</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Agentic AI</span>
+            <span class="exp-tag">MLOps</span>
+            <span class="exp-tag">Governance</span>
+            <span class="exp-tag">Enterprise Platform</span>
+            <span class="exp-tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">GenAI Strategy &amp; CoE Design</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Global Life Science Company</span><span>2024 · 3 months</span>
+            </div>
+            <div class="exp-impact">300+ ideas consolidated into 5 board-aligned initiatives</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Facilitated structured ideation across business units, collecting and scoring 300+ GenAI use case ideas</li>
+            <li>Applied strategic prioritisation framework to consolidate into 5 high-impact board-aligned initiatives</li>
+            <li>Designed rapid GenAI innovation framework — from idea to PoC in 6 weeks</li>
+            <li>Defined CoE operating model, talent roadmap, and governance principles for sustained AI capability</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">GenAI Strategy</span>
+            <span class="exp-tag">CoE Design</span>
+            <span class="exp-tag">Innovation Frameworks</span>
+            <span class="exp-tag">Life Sciences</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">GenAI Strategy &amp; CoE Roadmap</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Swarovski</span><span>2023–2024 · 2 months</span>
+            </div>
+            <div class="exp-impact">AI strategy shaped across 20+ business units</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Conducted AI maturity assessment and use case discovery across 20+ global business units</li>
+            <li>Built GenAI roadmap spanning quick wins, strategic programmes, and long-term platform investments</li>
+            <li>Designed AI Centre of Excellence structure — governance, capabilities, tooling, and ways of working</li>
+            <li>Aligned C-suite and BU leadership on AI investment priorities</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">GenAI Strategy</span>
+            <span class="exp-tag">CoE Roadmap</span>
+            <span class="exp-tag">Consumer &amp; CPG</span>
+            <span class="exp-tag">Stakeholder Alignment</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">Generative AI Pilot — e-Banking</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Major Swiss Bank (Tier 1)</span><span>2023 · 3 months</span>
+            </div>
+            <div class="exp-impact">First RAG product in production at a tier-1 Swiss financial institution</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Led design and build of RAG-powered GenAI product for e-banking — first of its kind at a tier-1 Swiss bank</li>
+            <li>Built on Azure OpenAI stack with custom retrieval pipeline, chunking strategy, and evaluation framework</li>
+            <li>Navigated Risk, Legal, and Compliance review — obtained full sign-off for production deployment</li>
+            <li>Managed stakeholder alignment from product owners to Chief Digital Officer</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">RAG</span>
+            <span class="exp-tag">Azure OpenAI</span>
+            <span class="exp-tag">Financial Services</span>
+            <span class="exp-tag">Compliance</span>
+            <span class="exp-tag">LLM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">Data Services Engagement Workstream</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Global Pharma Client</span><span>2022–2023 · 6 months</span>
+            </div>
+            <div class="exp-impact">Operating model redesign for global Enterprise Data Services team</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Built end-to-end data capability map covering 80+ data services across the global EDS organisation</li>
+            <li>Designed AI/data maturity model and benchmarked organisation against industry leaders</li>
+            <li>Led operating model redesign — team structure, service catalogue, and governance framework</li>
+            <li>Delivered actionable 18-month roadmap to C-suite data leadership</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Data Strategy</span>
+            <span class="exp-tag">Operating Model</span>
+            <span class="exp-tag">Pharma</span>
+            <span class="exp-tag">Capability Mapping</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <button class="exp-header">
+          <div>
+            <div class="exp-role">Portfolio Management System Upgrade</div>
+            <div class="exp-meta">
+              <span>Deloitte Consulting AG</span><span>Swiss Private Bank</span><span>2022 · 4 months</span>
+            </div>
+            <div class="exp-impact">Core system migration with zero business interruption</div>
+          </div>
+          <svg class="exp-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Managed data migration workstream for core portfolio management system upgrade at a Swiss private bank</li>
+            <li>Designed data mapping, validation rules, and reconciliation logic across legacy and target systems</li>
+            <li>Coordinated with business analysts, IT, and client stakeholders to ensure data integrity at go-live</li>
+            <li>Delivered migration with zero business interruption across 5 asset classes</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Financial Services</span>
+            <span class="exp-tag">Data Migration</span>
+            <span class="exp-tag">Private Banking</span>
+            <span class="exp-tag">Project Management</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1354,6 +1731,77 @@ CONTACT: benzaquinarthur@gmail.com`;
       chatInput.value = chip.dataset.q;
       chatSend();
     });
+  });
+
+  // ── Dark / Light mode toggle ──
+  const modeToggle = document.getElementById('mode-toggle');
+  const SUN = '&#9788;';
+  const MOON = '&#9790;';
+
+  if (localStorage.getItem('colorMode') === 'light') {
+    document.body.classList.add('light');
+    modeToggle.innerHTML = MOON;
+  }
+
+  modeToggle.addEventListener('click', () => {
+    document.body.classList.add('transitioning');
+    setTimeout(() => document.body.classList.remove('transitioning'), 350);
+    const isLight = document.body.classList.toggle('light');
+    modeToggle.innerHTML = isLight ? MOON : SUN;
+    localStorage.setItem('colorMode', isLight ? 'light' : 'dark');
+  });
+
+  // ── Experience accordion ──
+  document.querySelectorAll('.exp-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card   = btn.closest('.exp-card');
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.exp-card.open').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    });
+  });
+
+  // ── Scroll reveal ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  // Sections without staggered grids: fade in the whole inner block
+  document.querySelectorAll('.placeholder-section .section-inner').forEach(el => {
+    if (!el.querySelector('.manifesto-grid, .exp-cards')) {
+      el.classList.add('reveal');
+      revealObserver.observe(el);
+    }
+  });
+
+  // Sections with staggered grids: reveal header then stagger cards
+  const cardGroupObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const section = entry.target.closest('.placeholder-section');
+      if (section) {
+        ['.section-eyebrow', '.section-title', '.section-subtitle'].forEach((sel, i) => {
+          const el = section.querySelector(sel);
+          if (el) {
+            el.classList.add('reveal');
+            setTimeout(() => el.classList.add('in'), i * 80);
+          }
+        });
+      }
+      entry.target.querySelectorAll('.manifesto-card, .exp-card').forEach((card, i) => {
+        card.classList.add('reveal');
+        setTimeout(() => card.classList.add('in'), 200 + i * 75);
+      });
+      cardGroupObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.manifesto-grid, .exp-cards').forEach(g => {
+    cardGroupObserver.observe(g);
   });
 </script>
 
